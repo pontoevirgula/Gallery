@@ -3,18 +3,26 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     namespace 'com.chslcompany.gallery'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.chslcompany.gallery"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField"String", "PRIVATE_KEY", apikeyProperties["PRIVATE_KEY"]
+        buildConfigField"String", "BASE_URL", "\"https://api.pexels.com/\""
+
     }
 
     buildTypes {
@@ -34,7 +42,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
