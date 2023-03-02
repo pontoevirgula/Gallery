@@ -8,6 +8,14 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\MyProjects\\Gallery\\store\\pixels_apikey.jks')
+            storePassword 'pixels1'
+            keyAlias 'pixels'
+            keyPassword 'pixels1'
+        }
+    }
     namespace 'com.chslcompany.gallery'
     compileSdk 33
 
@@ -26,9 +34,21 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
+        debug{
+            applicationIdSuffix '.debug'
+            debuggable true
+        }
+        staging{
+            initWith debug
+            minifyEnabled true
+            applicationIdSuffix '.staging'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.release
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-rules-staging.pro'
         }
     }
     compileOptions {
@@ -37,6 +57,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
