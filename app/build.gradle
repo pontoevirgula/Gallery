@@ -15,7 +15,7 @@ apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\MyProjects\\Gallery\\store\\pixels_apikey.jks')
+            storeFile file('\\..\\store\\pixels_apikey.jks')
             storePassword 'pixels1'
             keyAlias 'pixels'
             keyPassword 'pixels1'
