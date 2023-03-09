@@ -1,7 +1,7 @@
 package com.chslcompany.gallery.framework.di
 
 import com.chslcompany.gallery.BuildConfig
-import com.chslcompany.gallery.framework.network.AuthorizationInterceptor
+import com.chslcompany.gallery.framework.network.interceptor.AuthorizationInterceptor
 import com.chslcompany.gallery.framework.network.api.WallpapersApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

@@ -1,4 +1,4 @@
-package com.chslcompany.gallery.framework.network
+package com.chslcompany.gallery.framework.network.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
