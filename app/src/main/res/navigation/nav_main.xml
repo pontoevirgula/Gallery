@@ -6,13 +6,21 @@
     app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/popularFragment"
-        android:name="com.chslcompany.gallery.ui.fragment.popular.PopularFragment"
-        android:label="fragment_popular"
-        tools:layout="@layout/fragment_popular" />
-    <fragment
         android:id="@+id/mainFragment"
         android:name="com.chslcompany.gallery.ui.fragment.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_downloadFragment"
+            app:destination="@id/downloadFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/downloadFragment"
+        android:name="com.chslcompany.gallery.ui.fragment.download.DownloadFragment"
+        android:label="fragment_download"
+        tools:layout="@layout/fragment_download" >
+        <argument
+            android:name="image"
+            app:argType="string[]" />
+    </fragment>
 </navigation>
