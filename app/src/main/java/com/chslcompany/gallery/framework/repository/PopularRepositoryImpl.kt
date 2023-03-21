@@ -12,6 +12,6 @@ class PopularRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource<DataWrapperResponse>
 ) : PopularRepository{
 
-    override fun fetchPopular(pages: Int): PagingSource<Int, PhotoDomain>  =
+    override fun fetchPopular(pages: Int): PagingSource<Int, PhotoDomain> =
         PopularPagingSource(remoteDataSource, pages)
 }
