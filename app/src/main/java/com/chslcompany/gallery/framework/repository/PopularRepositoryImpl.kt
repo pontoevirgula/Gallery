@@ -9,9 +9,41 @@ import com.chslcompany.gallery.framework.paging.PopularPagingSource
 import javax.inject.Inject
 
 class PopularRepositoryImpl @Inject constructor(
+    //private val dao: WallPaperDao,
     private val remoteDataSource: RemoteDataSource<DataWrapperResponse>
-) : PopularRepository{
+) : PopularRepository {
 
     override fun fetchPopular(pages: Int): PagingSource<Int, PhotoDomain> =
         PopularPagingSource(remoteDataSource, pages)
+
+//    override suspend fun listPhotos(params : PhotoDomain): Flow<ResultStatus<List<PhotoDomain>>> =
+//        readFromDatabase(dao)
+//
+//
+//    private suspend fun readFromDatabase(dao: WallPaperDao): Flow<ResultStatus<List<PhotoDomain>>> =
+//        flow {
+//            dao.getAllPhotos().map {
+//                it.sortedByDescending { photoEntity ->
+//                    photoEntity.id
+//                }.toPhotoDb()
+//            }
+//        }
+//
+//
+//    override suspend fun removePhotoFromDatabase(photo: PhotoDomain): Flow<ResultStatus<PhotoDomain>> =
+//        flow {
+//            dao.deleteById(photo.id)
+//        }
+//
+//
+//    override suspend fun savePhoto(photoDomain: PhotoDomain): Flow<ResultStatus<Nothing>> =
+//        flow {
+//            val photoEntity = PhotoEntity(
+//                photo = photoDomain.photo,
+//                id = photoDomain.id
+//            )
+//            dao.insert(photoEntity)
+//        }
+
 }
+

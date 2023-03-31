@@ -13,4 +13,10 @@ interface UseCaseModule {
 
     @Binds
     fun bindPopularUseCase(useCaseImpl: GetPopularUseCaseImpl) : GetPopularUseCase
+
+//    @Binds
+//    fun bindListPhotoUseCase(useCase: GetListPhotoUseCaseImpl) : GetListPhotoUseCase
+//
+//    @Binds
+//    fun bindRemovePhotoUseCase(useCase: GetRemovePhotoUseCaseImpl) : GetRemovePhotoUseCase
 }

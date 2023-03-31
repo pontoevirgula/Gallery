@@ -10,6 +10,7 @@ buildscript {
     ext.kotlin_version = "1.7.21"
     ext.retrofit_version = "2.9.0"
     ext.google_services = "4.3.15"
+    ext.room_version = "2.5.0"
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

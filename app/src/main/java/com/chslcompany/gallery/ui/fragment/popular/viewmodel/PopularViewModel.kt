@@ -16,7 +16,7 @@ class PopularViewModel @Inject constructor(
     private val getPopularUseCase: GetPopularUseCase
 ) : ViewModel() {
 
-    fun popularWallPapers() : Flow<PagingData<PhotoDomain>>  {
+    fun popularWallPapers(): Flow<PagingData<PhotoDomain>> {
         return getPopularUseCase(
             GetPopularUseCase.GetPopularParams(getPagingConfig())
         ).cachedIn(viewModelScope)

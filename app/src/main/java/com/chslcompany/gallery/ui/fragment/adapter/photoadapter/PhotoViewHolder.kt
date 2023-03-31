@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.chslcompany.core.model.PhotoDomain
 import com.chslcompany.gallery.R
 import com.chslcompany.gallery.databinding.ItemPhotoBinding
+import com.chslcompany.gallery.ui.extensions.loadBlurredImageWithPlaceholder
 
 class PhotoViewHolder(
     itemPhotoBinding: ItemPhotoBinding,
@@ -17,11 +18,10 @@ class PhotoViewHolder(
     private val name = itemPhotoBinding.name
 
     fun bind(photoDomain: PhotoDomain){
-        Glide.with(itemView.context)
-            .load(photoDomain.srcDomain.original)
-            .centerCrop()
-            .fallback(R.drawable.baseline_broken)
-            .into(image)
+        image.loadBlurredImageWithPlaceholder(
+            imageUrl = photoDomain.srcDomain?.original,
+            placeholderColor = photoDomain.avgColor,
+        )
 
         name.text = photoDomain.photographer
 

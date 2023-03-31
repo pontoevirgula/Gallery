@@ -1,4 +1,4 @@
-package com.chslcompany.core.usecase
+package com.chslcompany.core.usecase.base
 
 sealed class ResultStatus<out T> {
     object Loading : ResultStatus<Nothing>()
@@ -13,3 +13,5 @@ sealed class ResultStatus<out T> {
         }
     }
 }
+
+class DatabaseException(message : String) : Exception(message)
