@@ -3,6 +3,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wallPaper">WallPapers</string>
     <string name="categories">Categories</string>
+    <string name="item_save">item salvo</string>
+    <string name="error_to_save">erro ao salvar</string>
     <string name="back">back</string>
     <string name="download">downLoad</string>
     <string name="set_wallpaper">Set Wallpaper</string>
@@ -14,4 +16,5 @@
     <string name="retry">retry</string>
     <string name="error_loading_more_try_again">Error when trying to load the next page.\n
         Try again</string>
+    <string name="enable_screen_saver">Ativar a função de tela de descanso</string>
 </resources>

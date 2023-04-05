@@ -12,7 +12,7 @@ interface WallPaperDao {
     suspend fun insert(entity: PhotoEntity)
 
     @Query("SELECT * FROM ${DbConstants.APP_TABLE_NAME}")
-    suspend fun getAllPhotos() : Flow<List<PhotoEntity>>
+    fun getAllPhotos() : Flow<List<PhotoEntity>>
 
     @Delete
     suspend fun deleteWallpaperById(entity: PhotoEntity)

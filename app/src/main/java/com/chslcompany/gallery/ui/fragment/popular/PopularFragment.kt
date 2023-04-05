@@ -14,12 +14,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chslcompany.core.model.PhotoDomain
+import com.chslcompany.gallery.R
 import com.chslcompany.gallery.databinding.FragmentPopularBinding
 import com.chslcompany.gallery.ui.fragment.adapter.photoadapter.PhotoAdapter
 import com.chslcompany.gallery.ui.fragment.main.MainFragmentDirections
 import com.chslcompany.gallery.ui.fragment.popular.viewmodel.PopularViewModel
 import com.chslcompany.gallery.util.animationCancel
 import com.chslcompany.gallery.util.pulseAnimation
+import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,7 +31,7 @@ import kotlinx.coroutines.launch
 class PopularFragment : Fragment() {
     private lateinit var binding : FragmentPopularBinding
     private val viewModel : PopularViewModel by viewModels()
-    private val photoAdapter by lazy { PhotoAdapter(::detail) }
+    private val photoAdapter by lazy { PhotoAdapter(::detail, ::insertData) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,7 @@ class PopularFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         observerLoadState()
+        observerFavoriteUiState()
         fetchWallPapers()
     }
 
@@ -53,6 +57,24 @@ class PopularFragment : Fragment() {
             setHasFixedSize(true)
             adapter = photoAdapter
         }
+    }
+
+    private fun observerFavoriteUiState() {
+        viewModel.favoriteUiState.observe(viewLifecycleOwner) { favoriteUiState ->
+            when (favoriteUiState) {
+                PopularViewModel.FavoriteUiStatus.Loading -> ONE_ALEATORY
+                is PopularViewModel.FavoriteUiStatus.FavoritePhoto -> {
+                    if (favoriteUiState.saved) favoriteItemMessage(getString(R.string.item_save))
+                    else favoriteItemMessage(getString(R.string.error_to_save))
+                }
+            }
+        }
+    }
+
+    private fun favoriteItemMessage(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .setAnimationMode(ANIMATION_MODE_SLIDE)
+            .show()
     }
 
     private fun fetchWallPapers() =
@@ -87,5 +109,14 @@ class PopularFragment : Fragment() {
     private fun detail(photoDomain: PhotoDomain){
         val data = arrayOf(photoDomain.srcDomain?.original, photoDomain.description)
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDownloadFragment(data))
+    }
+
+    private fun insertData(photoDomain: PhotoDomain) {
+        viewModel.favoritePhoto(photoDomain)
+        //findNavController().navigate(MainFragmentDirections.actionMainFragmentToGalleryFragment())
+    }
+
+    companion object {
+        private const val ONE_ALEATORY = 1
     }
 }

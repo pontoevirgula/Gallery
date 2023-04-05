@@ -4,7 +4,9 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.chslcompany.core.usecase.base.ResultStatus
 import com.chslcompany.gallery.R
+import kotlinx.coroutines.flow.Flow
 
 fun ImageView.loadBlurredImageWithPlaceholder(
     imageUrl: String?,
@@ -29,4 +31,18 @@ fun ImageView.loadBlurredImageWithPlaceholder(
         .placeholder(placeholderDrawable)
         .fallback(R.drawable.baseline_broken)
         .into(this)
+}
+
+suspend fun <T> Flow<ResultStatus<T>>.watchStatus(
+    loading: suspend () -> Unit = {},
+    success: suspend (data: T) -> Unit,
+    error: suspend (throwable: Throwable) -> Unit
+) {
+    collect { status ->
+        when(status) {
+            ResultStatus.Loading -> loading.invoke()
+            is ResultStatus.Success -> success.invoke(status.data)
+            is ResultStatus.Error -> error.invoke(status.throwable)
+        }
+    }
 }

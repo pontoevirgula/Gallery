@@ -71,6 +71,7 @@ android {
 
 dependencies {
     implementation project(':core')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation project(':testing')
 
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -110,6 +111,8 @@ dependencies {
 
     //Room
     implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     //test
     testImplementation 'junit:junit:4.13.2'

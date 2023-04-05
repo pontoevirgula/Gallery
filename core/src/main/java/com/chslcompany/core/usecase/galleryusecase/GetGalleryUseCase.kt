@@ -2,7 +2,7 @@ package com.chslcompany.core.usecase.galleryusecase
 
 import com.chslcompany.core.data.dbrepository.GalleryRepository
 import com.chslcompany.core.model.PhotoDomain
-import com.chslcompany.core.usecase.FlowUseCase
+import com.chslcompany.core.usecase.base.FlowUseCase
 import com.chslcompany.core.usecase.base.CoroutinesDispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
