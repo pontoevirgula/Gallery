@@ -1,6 +1,7 @@
 package com.chslcompany.gallery.ui.fragment.popular.viewmodel
 
 import androidx.paging.PagingData
+import com.chslcompany.core.usecase.insertusecase.GetInsertGalleryUseCase
 import com.chslcompany.core.usecase.popularusecase.GetPopularUseCase
 import com.chslcompany.testing.MainCoroutineRule
 import com.chslcompany.testing.model.WallpapersFactory
@@ -28,11 +29,14 @@ class PopularViewModelTest {
     @Mock
     lateinit var popularUseCase: GetPopularUseCase
 
+    @Mock
+    lateinit var insertGalleryUseCase: GetInsertGalleryUseCase
+
     private lateinit var viewModel: PopularViewModel
 
     @Before
     fun setup() {
-        viewModel = PopularViewModel(popularUseCase)
+        viewModel = PopularViewModel(popularUseCase, insertGalleryUseCase)
     }
 
     @Test

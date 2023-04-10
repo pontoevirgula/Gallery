@@ -11,6 +11,7 @@ data class PhotoEntity(
     @PrimaryKey
     var id : Int,
     var photo : String,
+    var smallPhoto : String,
     var photographer : String,
     var avgColor : String
 )
@@ -21,7 +22,8 @@ fun List<PhotoEntity>.toPhotoDomain() = map{
             photographer = it.photographer,
             avgColor = it.avgColor,
             srcDomain = SrcDomain(
-                original = it.photo
+                original = it.photo,
+                small = it.smallPhoto
             )
         )
     }

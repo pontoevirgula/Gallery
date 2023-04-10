@@ -98,7 +98,7 @@ class PopularFragment : Fragment() {
                     }
                     is LoadState.Error -> {
                        Toast.makeText(requireContext(),
-                           "Falha ao carregar wallpapers", Toast.LENGTH_SHORT
+                           getString(R.string.error_to_load_wallpapers), Toast.LENGTH_SHORT
                        ).show()
                     }
                 }
@@ -113,7 +113,7 @@ class PopularFragment : Fragment() {
 
     private fun insertData(photoDomain: PhotoDomain) {
         viewModel.favoritePhoto(photoDomain)
-        //findNavController().navigate(MainFragmentDirections.actionMainFragmentToGalleryFragment())
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToGalleryFragment())
     }
 
     companion object {

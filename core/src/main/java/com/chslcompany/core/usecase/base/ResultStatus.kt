@@ -14,4 +14,3 @@ sealed class ResultStatus<out T> {
     }
 }
 
-class DatabaseException(message : String) : Exception(message)

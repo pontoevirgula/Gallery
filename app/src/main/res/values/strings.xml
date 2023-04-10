@@ -5,6 +5,7 @@
     <string name="categories">Categories</string>
     <string name="item_save">item salvo</string>
     <string name="error_to_save">erro ao salvar</string>
+    <string name="error_to_load_wallpapers">Falha ao carregar papel de parede</string>
     <string name="back">back</string>
     <string name="download">downLoad</string>
     <string name="set_wallpaper">Set Wallpaper</string>
@@ -17,4 +18,7 @@
     <string name="error_loading_more_try_again">Error when trying to load the next page.\n
         Try again</string>
     <string name="enable_screen_saver">Ativar a função de tela de descanso</string>
+    <string name="no">Não</string>
+    <string name="yes">Sim</string>
+    <string name="want_delete">Deseja deletar essa foto?</string>
 </resources>
