@@ -1,5 +1,6 @@
 package com.chslcompany.gallery.ui.fragment.gallery
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.work.*
 import com.chslcompany.core.model.PhotoDomain
 import com.chslcompany.gallery.databinding.FragmentGalleryBinding
+import com.chslcompany.gallery.framework.workmanager.WallpaperWorkManager
 import com.chslcompany.gallery.util.CustomDialog
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+
+private const val WORK_NAME = "WALLPAPER_WORK_MANAGER"
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment() {
@@ -23,6 +30,9 @@ class GalleryFragment : Fragment() {
     private val galleryAdapter : GalleryAdapter by lazy {
         GalleryAdapter(::detail, ::delete)
     }
+
+    @Inject
+    lateinit var workManager: WorkManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +46,12 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getAll()
         backButton()
+        startWorkManager(workManager)
+        binding.switchId.setOnCheckedChangeListener { _, isChecked ->
+            if (!isChecked) {
+                cancelWorkManager(workManager)
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -87,6 +103,28 @@ class GalleryFragment : Fragment() {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
             .show()
+    }
+
+    @SuppressLint("InvalidPeriodicWorkRequestInterval")
+    private fun startWorkManager(workManager: WorkManager) {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val wallpaperWorker =
+            PeriodicWorkRequest.Builder(WallpaperWorkManager::class.java, 1, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniquePeriodicWork(
+            WORK_NAME,
+            ExistingPeriodicWorkPolicy.UPDATE,
+            wallpaperWorker
+        )
+    }
+
+    private fun cancelWorkManager(workManager: WorkManager) {
+        workManager.cancelUniqueWork(WORK_NAME)
     }
 
     companion object {
