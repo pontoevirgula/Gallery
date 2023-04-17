@@ -2,6 +2,7 @@ package com.chslcompany.gallery.framework.network.response
 
 import com.chslcompany.core.model.PhotoDomain
 import com.chslcompany.core.model.SrcDomain
+import com.chslcompany.gallery.framework.db.entity.PhotoEntity
 import com.google.gson.annotations.SerializedName
 
 data class DataWrapperResponse(
